@@ -1,30 +1,10 @@
-import { defineStore, createPinia } from 'pinia'
-import piniaPluginPersist from 'pinia-plugin-persist'
+import { createPinia, storeToRefs } from 'pinia'
+import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
-export const globalStore = defineStore({
-    id: 'global-store',
-    state: () => ({
-        name: '--'
-    }),
-    getters: {},
-    actions: {
-        setName(name: string) {
-            this.name = name
-        }
-    },
-    persist: {
-        enabled: true,
-        strategies: [
-            {
-                storage: sessionStorage,
-                paths: ['name']
-            }
-        ]
-    }
-})
 
 const store = createPinia()
-store.use(piniaPluginPersist)
+store.use(piniaPluginPersistedstate)
+export { storeToRefs };
 
 export default store
 
