@@ -48,7 +48,6 @@ export default defineComponent({
     };
     return () => (
       <div class={style["vid-container"]}>
-
         <video
           class={style["bgvid"]}
           autoplay={true}
@@ -68,9 +67,6 @@ export default defineComponent({
           >
             <source src={require(url.value)} type="video/webm" />
           </video>
-          <div>
-
-          </div>
           <el-form ref={formRef} rules={rules} model={formData.value}>
             <div class={style["box"]}>
               <h1>Login</h1>
