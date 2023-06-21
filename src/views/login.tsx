@@ -48,6 +48,7 @@ export default defineComponent({
     };
     return () => (
       <div class={style["vid-container"]}>
+
         <video
           class={style["bgvid"]}
           autoplay={true}
