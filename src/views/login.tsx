@@ -1,69 +1,108 @@
-import {
-  defineComponent,
-  ref,
-  FunctionalComponent,
-  CSSProperties,
-  PropType,
-} from "vue";
+import { defineComponent, ref, reactive } from "vue";
+import { useRouter } from "vue-router";
 import style from "@/moduleScss/login.module.scss"; //以.module做样式隔离
+import type { FormInstance, FormRules } from "element-plus";
 export default defineComponent({
-  props: {},
-  emits: [],
   components: {},
-  setup(props, ctx) {
-    console.log(props, ctx);
-    const sum = ref(1);
-    type FnSum = (val: number) => void;
-    const onSum: FnSum = (val) => {
-      sum.value += val;
+  setup() {
+    const route = useRouter();
+    console.log(route)
+    const url = ref<string>("../vid/sand-beach.mp4");
+    type FnRequire = (url: string) => string;
+    const require: FnRequire = (url) => {
+      return new URL(url, import.meta.url).href;
+    };
+    //form
+    type FormData = {
+      userName: string;
+      password: string;
+    };
+    const formData = ref<FormData>({ userName: "", password: "" });
+    const rules = reactive<FormRules>({
+      userName: [
+        {
+          required: true,
+          message: "Please input Activity userName",
+          trigger: "blur",
+        },
+        { min: 3, max: 5, message: "Length should be 3 to 5", trigger: "blur" },
+      ],
+      password: [
+        {
+          required: true,
+          message: "Please input Activity password",
+          trigger: "blur",
+        },
+        {
+          min: 6,
+          max: 18,
+          message: "Length should be 6 to 18",
+          trigger: "blur",
+        },
+      ],
+    });
+    const formRef = ref<FormInstance>();
+    const submitForm = async () => {
+      const isOk = await formRef.value.validate((valid: boolean) => valid);
+      console.log(isOk);
     };
     return () => (
-      <div class={style.app}>
-        <div class={style.title}>login</div>
-        <div>
-          <el-button
-            type="primary"
-            onClick={() => {
-              sum.value += 1;
-            }}
+      <div class={style["vid-container"]}>
+        <video
+          class={style["bgvid"]}
+          autoplay={true}
+          muted={true}
+          preload="auto"
+          loop
+        >
+          <source src={require(url.value)} type="video/webm" />
+        </video>
+        <div class={style["inner-container"]}>
+          <video
+            class={[style["bgvid"], style["inner"]]}
+            autoplay={true}
+            muted={true}
+            preload="auto"
+            loop
           >
-            按钮+1
-          </el-button>
+            <source src={require(url.value)} type="video/webm" />
+          </video>
+          <div>
+
+          </div>
+          <el-form ref={formRef} rules={rules} model={formData.value}>
+            <div class={style["box"]}>
+              <h1>Login</h1>
+              <el-form-item prop="userName">
+                <el-input
+                  class={style["input"]}
+                  v-model={formData.value.userName}
+                  placeholder="Username"
+                />
+              </el-form-item>
+              <el-form-item prop="password">
+                <el-input
+                  class={style["input"]}
+                  v-model={formData.value.password}
+                  placeholder="Password"
+                  type="password"
+                  autocomplete="off"
+                />
+              </el-form-item>
+              <el-button
+                class={style.button}
+                type="primary"
+                onClick={() => submitForm()}
+              >
+                Login
+              </el-button>
+              <p>
+                Not a member? <span>Sign Up</span>
+              </p>
+            </div>
+          </el-form>
         </div>
-        <div>
-          <el-input
-            class={style.input}
-            v-model={sum.value}
-            placeholder="Please input"
-          />
-        </div>
-        <Child title={"我是子"} style={{ color: "red" }} onChildSum={onSum}>
-          {{ slotOne: () => <div>插槽1</div> }}
-        </Child>
       </div>
     );
   },
 });
-type Props = {
-  title: string;
-  style: CSSProperties;
-  onChildSum: Function;
-};
-type Emit = {
-  childSum: (val: number) => void;
-};
-const Child: FunctionalComponent<Props, Emit> = (props, ctx) => {
-  const { title } = props;
-  const { slots, emit } = ctx;
-  return (
-    <div>
-      <div>{title}</div>
-      <div>{slots?.slotOne && slots.slotOne()}</div>
-      <div>
-        <el-button type="primary" onClick={() => emit("childSum", 2)}>
-          按钮+2
-        </el-button>
-      </div>
-    </div>
-  );
-};

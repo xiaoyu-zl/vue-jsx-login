@@ -1,17 +1,99 @@
-.app {
-    .title {
-        font-size: 26px;
-        color: pink;
+// .app {
+//     .title {
+//         font-size: 26px;
+//         color: pink;
+//     }
+
+//     .input {
+//         margin-top: 20px;
+//         width: 200px;
+
+//         /* 使用 :global 伪类来穿透子组件样式 */
+//         :global(.el-input__wrapper) {
+//             background-color: pink;
+//             border: 1px solid red;
+//         }
+//     }
+// }
+
+.vid-container {
+    position: relative;
+    height: 100vh;
+    overflow: hidden;
+
+    .bgvid {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100vw;
     }
 
-    .input {
-        margin-top: 20px;
-        width: 200px;
+    .inner-container {
+        width: 400px;
+        height: 400px;
+        position: absolute;
+        top: calc(50vh - 200px);
+        left: calc(50vw - 200px);
+        overflow: hidden;
+        border-radius: 20px;
 
-        /* 使用 :global 伪类来穿透子组件样式 */
-        :global(.el-input__wrapper) {
-            background-color: pink;
-            border: 1px solid red;
+        .inner {
+            //让内容器 视频整体居中
+            top: calc(-50vh + 200px);
+            left: calc(-50vw + 200px);
+            //form模糊效果
+            filter: url("data:image/svg+xml;utf9,<svg%20version='1.1'%20xmlns='http://www.w3.org/2000/svg'><filter%20id='blur'><feGaussianBlur%20stdDeviation='10'%20/></filter></svg>#blur");
+            -webkit-filter: blur(5px);
+            -ms-filter: blur(5px);
+            -o-filter: blur(5px);
+            filter: blur(5px);
+        }
+
+        .box {
+            position: absolute;
+            height: 100%;
+            width: 100%;
+            font-family: Helvetica;
+            color: #fff;
+            background: rgba(0, 0, 0, 0.13);
+            padding: 30px 0px;
+
+            h1 {
+                text-align: center;
+                margin: 30px 0;
+                font-size: 30px;
+            }
+
+            .input {
+                width: 330px;
+                height: 40px;
+                margin: 0 auto;
+
+                :global(.el-input__wrapper) {
+                    background-color: transparent;
+                }
+            }
+
+            //修改form 验证提示 样式修改
+            :global(.el-form-item__error) {
+                left: 35px;
+            }
+
+            .button {
+                width: 330px;
+                margin: 20px auto;
+                display: block;
+            }
+
+            p {
+                font-size: 14px;
+                text-align: center;
+
+                span {
+                    cursor: pointer;
+                    color: #666;
+                }
+            }
         }
     }
 }
