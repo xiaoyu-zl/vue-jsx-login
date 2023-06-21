@@ -6,6 +6,7 @@ import {
   PropType,
 } from "vue";
 import style from "@/moduleScss/login.module.scss"; //以.module做样式隔离
+import {useRouter} from "vue-router";
 export default defineComponent({
   props: {},
   emits: [],
@@ -17,6 +18,7 @@ export default defineComponent({
     const onSum: FnSum = (val) => {
       sum.value += val;
     };
+    const router = useRouter()
     return () => (
       <div class={style.app}>
         <div class={style.title}>login</div>
@@ -40,7 +42,11 @@ export default defineComponent({
         <Child title={"我是子"} style={{ color: "red" }} onChildSum={onSum}>
           {{ slotOne: () => <div>插槽1</div> }}
         </Child>
+        <el-button class={style.瘤子} onClick={()=>{
+          router.push('liuZi')
+        }} >去瘤子页面</el-button>
       </div>
+  
     );
   },
 });
