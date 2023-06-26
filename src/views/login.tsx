@@ -6,7 +6,7 @@ export default defineComponent({
   components: {},
   setup() {
     const route = useRouter();
-    console.log(route)
+    console.log(route);
     const url = ref<string>("../vid/sand-beach.mp4");
     type FnRequire = (url: string) => string;
     const require: FnRequire = (url) => {
@@ -54,9 +54,11 @@ export default defineComponent({
           muted={true}
           preload="auto"
           loop
+          controlslist="nodownload"
         >
           <source src={require(url.value)} type="video/webm" />
         </video>
+        <div class={style["bgvid"]}></div>
         <div class={style["inner-container"]}>
           <video
             class={[style["bgvid"], style["inner"]]}
@@ -64,6 +66,7 @@ export default defineComponent({
             muted={true}
             preload="auto"
             loop
+            controlslist="nodownload"
           >
             <source src={require(url.value)} type="video/webm" />
           </video>
