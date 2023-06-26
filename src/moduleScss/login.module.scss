@@ -21,6 +21,8 @@
     left: calc(50vw - 200px);
     overflow: hidden;
     border-radius: 20px;
+    letter-spacing: 0.5em;
+    backdrop-filter: blur(5px);
 
     .inner {
       //让内容器 视频整体居中
@@ -76,9 +78,79 @@
 
         span {
           cursor: pointer;
-          color: #666;
+          color: #524f4f;
         }
       }
     }
+  }
+}
+
+
+
+
+
+.flipInY {
+  animation: flipInY 1.5s ease 1 both;
+}
+
+.flipOutY {
+  animation: flipOutY 1.5s ease 1 both;
+}
+
+
+
+@keyframes flipInY {
+  0% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 90deg);
+    animation-timing-function: ease-in;
+    opacity: 0.1
+  }
+
+  40% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+    animation-timing-function: ease-in;
+    opacity: 0.3
+  }
+
+  60% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+    opacity: 1
+  }
+
+  80% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -5deg)
+  }
+
+  100% {
+    transform: perspective(400px)
+  }
+}
+
+
+
+@keyframes flipOutY {
+  0% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -90deg);
+    animation-timing-function: ease-in;
+    opacity: 0.1
+  }
+
+  40% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -20deg);
+    animation-timing-function: ease-in;
+    opacity: 0.3
+  }
+
+  60% {
+    transform: perspective(400px) rotate3d(0, 1, 0, 10deg);
+    opacity: 1
+  }
+
+  80% {
+    transform: perspective(400px) rotate3d(0, 1, 0, -5deg)
+  }
+
+  100% {
+    transform: perspective(400px)
   }
 }

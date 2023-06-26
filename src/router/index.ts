@@ -20,7 +20,7 @@ const routes: RouteRecordRaw[] = [
         meta: {
             type: "login",
         },
-        component: () => import("@/views/login"),
+        component: () => import("@/views/user/index"),
     },
     {
         path: "/:pathMatch(.*)*", // 注意此处 404页面匹配规则和以前不相同，得采用这种配置方式才行
