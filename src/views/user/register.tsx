@@ -1,5 +1,5 @@
 import { defineComponent, PropType, ref, reactive, toRefs } from "vue";
-import style from "@/moduleScss/login.module.scss"; //以.module做样式隔离
+import style from "@/cssModule/login.module.scss"; //以.module做样式隔离
 import type { FormInstance, FormRules } from "element-plus";
 
 export default defineComponent({

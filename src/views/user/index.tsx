@@ -1,13 +1,10 @@
 import { defineComponent, ref } from "vue";
-import { useRouter } from "vue-router";
 import register from "./register.tsx";
 import login from "./login.tsx";
-import style from "@/moduleScss/login.module.scss"; //以.module做样式隔离
+import style from "@/cssModule/login.module.scss"; //以.module做样式隔离
 export default defineComponent({
   components: { register, login },
   setup() {
-    const route = useRouter();
-    console.log(route);
     const url = ref<string>("../../vid/sand-beach.mp4");
     type FnRequire = (url: string) => string;
     const require: FnRequire = (url) => {

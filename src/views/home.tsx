@@ -1,18 +1,14 @@
-import { defineComponent, ref } from "vue";
-import { useRoute } from "vue-router";
+import { defineComponent } from "vue";
+import style from "@/cssModule/home.module.scss"; //以.module做样式隔离
 
 export default defineComponent({
   props: {},
   emits: [],
   components: {},
-  setup(props, ctx) {
-    const route = useRoute();
-    console.log(route.query?.name);
-    const sum = ref<Number>(1);
+  setup() {
     return () => (
-      <div>
-        <div>home</div>
-        <el-input v-model={sum.value} placeholder="Please input" />
+      <div class={style["main"]}>
+        <div class={style["sphere"]}></div>
       </div>
     );
   },
