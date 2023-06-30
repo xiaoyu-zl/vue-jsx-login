@@ -4,7 +4,7 @@ export default defineComponent({
     props: {},
     emits: [],
     components: {},
-    setup(props, ctx) {
+    setup() {
         return () => <div>404</div>
     }
 })

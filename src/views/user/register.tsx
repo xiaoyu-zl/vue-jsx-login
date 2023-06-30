@@ -44,6 +44,7 @@ export default defineComponent({
     });
     const formRef = ref<FormInstance>();
     const submitForm = async () => {
+      if (!formRef.value) return;
       const isOk = await formRef.value.validate((valid: boolean) => valid);
       console.log(isOk);
     };
