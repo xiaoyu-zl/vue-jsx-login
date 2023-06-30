@@ -5,7 +5,7 @@ import style from "@/cssModule/login.module.scss"; //以.module做样式隔离
 export default defineComponent({
   components: { register, login },
   setup() {
-    const url = ref<string>("../../vid/sand-beach.mp4");
+    const url = ref<string>("/vid/sand-beach.mp4");
     type FnRequire = (url: string) => string;
     const require: FnRequire = (url) => {
       return new URL(url, import.meta.url).href;
