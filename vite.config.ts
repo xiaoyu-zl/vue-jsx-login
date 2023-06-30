@@ -55,38 +55,5 @@ export default defineConfig((v) => {
       //   },
       // },
     },
-    build: {
-      target: "modules",
-      outDir: "dist/static/", //指定输出路径
-      assetsDir: "assets", // 指定生成静态资源的存放路径
-      minify: "terser", // 混淆器，terser构建后文件体积更小
-      chunkSizeWarningLimit: 2000 /** Vite 2.6.x 以上需要配置 minify: "terser", terserOptions 才能生效 */,
-      rollupOptions: {
-        output: {
-          chunkFileNames: "static/js/[name]-[hash].js",
-          entryFileNames: "static/js/[name]-[hash].js",
-          assetFileNames: "static/[ext]/[name]-[hash].[ext]",
-          manualChunks(id) {
-            if (id.includes("node_modules")) {
-              return id
-                .toString()
-                .split("node_modules/")[1]
-                .split("/")[0]
-                .toString();
-            }
-          },
-        },
-      } /** 在打包代码时移除 console.log、debugger 和 注释 */,
-      terserOptions: {
-        compress: {
-          drop_console: false,
-          drop_debugger: true,
-          pure_funcs: ["console.log"],
-        },
-        format: {
-       /** 删除注释 */ comments: false,
-        },
-      },
-    },
   }
 })
