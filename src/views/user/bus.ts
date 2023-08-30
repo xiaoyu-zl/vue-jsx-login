@@ -1,22 +1,33 @@
-//zzl
-type Callback = (e: any) => void
-type Key = {
-    key: string,
-    callback: Callback
-}
+//回调函数
+type CallbackFn = (e: any) => void
+// eventObject
 type EventObject = {
     [key: string]: Array<Key>;
 }
-function EvBus() {
+type Key = {
+    key: string,
+    callback: CallbackFn
+}
+// 返回类型
+type BackBus = {
+    on: (eventName: string, callback: CallbackFn, key?: string) => void,
+    off: (eventName: string, key?: string) => void,
+    emit: (eventName: string, args: any, key?: string) => void
+}
+//构造
+type BusConstructor = {
+    new(): BackBus;
+}
+const EvBus = (function (): BackBus {
     let eventObject: EventObject = {};
     return {
-        on(eventName: string, callback: Callback, key = "*") {
+        on(eventName, callback, key = "*") {
             if (!eventObject[eventName]) {
                 eventObject[eventName] = [];
             }
             eventObject[eventName].push({ key, callback });
         },
-        off(eventName: string, key = "*") {
+        off(eventName, key = "*") {
             if (eventObject[eventName] && key == "*") {
                 delete eventObject[eventName];
             } else {
@@ -25,7 +36,7 @@ function EvBus() {
                 );
             }
         },
-        emit(eventName: string, args: any, key = "*") {
+        emit(eventName, args, key = "*") {
             const callbackList = eventObject[eventName];
             if (!callbackList) return console.error(eventName + "没有这个事件");
             for (let item of callbackList) {
@@ -33,25 +44,25 @@ function EvBus() {
                     item.callback(args);
                     return;
                 }
-
                 if (key == "*") {
                     item.callback(args);
                 }
             }
         },
     };
-}
-const eBus = new (EvBus as any)();
+} as unknown as BusConstructor)
+const Bus: BusConstructor = EvBus;
+const eBus = new Bus();
 eBus.on(
     "X",
-    (obj: object) => {
+    (obj) => {
         console.log("A事件", obj);
     },
     "A事件"
 );
 eBus.on(
     "X",
-    (obj: object) => {
+    (obj) => {
         console.log("B事件", obj);
     },
     "B事件"
